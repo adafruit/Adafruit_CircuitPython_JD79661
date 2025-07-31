@@ -56,7 +56,7 @@ _START_SEQUENCE = (
     b"\x00\x02\x8f\x29"  # Panel setting (128x250 resolution)
     b"\x01\x02\x07\x00"  # Power setting
     b"\x03\x03\x10\x54\x44"  # Power offset
-    b"\x06\x07\x05\x00\x3F\x0A\x25\x12\x1A"  # Booster soft start
+    b"\x06\x07\x05\x00\x3f\x0a\x25\x12\x1a"  # Booster soft start
     b"\x50\x01\x37"  # CDI
     b"\x60\x02\x02\x02"  # TCON
     b"\x61\x04\x00\x80\x00\xfa"  # Resolution (0, 128, 0, 250)
@@ -74,9 +74,8 @@ _STOP_SEQUENCE = (
     b"\x07\x01\xa5"  # Deep sleep
 )
 
-_REFRESH_SEQUENCE = (
-    b"\x12\x01\x00"  # Display refresh
-)
+_REFRESH_SEQUENCE = b"\x12\x01\x00"  # Display refresh
+
 
 # pylint: disable=too-few-public-methods
 class JD79661(EPaperDisplay):
@@ -103,7 +102,7 @@ class JD79661(EPaperDisplay):
             # No reset pin defined, so no deep sleeping
             stop_sequence = b""
 
-        start_sequence = bytearray(_START_SEQUENCE )
+        start_sequence = bytearray(_START_SEQUENCE)
 
         width = kwargs.get("width", 128)
         height = kwargs.get("height", 250)
@@ -112,7 +111,7 @@ class JD79661(EPaperDisplay):
 
         # Update resolution in start sequence (bytes at position for resolution command)
         # Find the resolution command in the sequence and update it
-        res_pos = start_sequence.find(b'\x61\x04')
+        res_pos = start_sequence.find(b"\x61\x04")
         if res_pos != -1:
             if height % 4 != 0:
                 height += 4 - height % 4
@@ -135,5 +134,5 @@ class JD79661(EPaperDisplay):
             write_color_ram_command=None,  # JD79661 uses single RAM with 2-bit pixels
             refresh_display_command=_REFRESH_SEQUENCE,
             always_toggle_chip_select=True,
-            address_little_endian=False
+            address_little_endian=False,
         )
