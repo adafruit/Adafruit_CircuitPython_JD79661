@@ -119,7 +119,7 @@ class JD79661(EPaperDisplay):
             start_sequence[res_pos + 4] = (width >> 8) & 0xFF
             start_sequence[res_pos + 5] = width & 0xFF
 
-        print(start_sequence.hex(" "))
+        # print(start_sequence.hex(" "))
 
         super().__init__(
             bus,
