@@ -1,14 +1,12 @@
 # SPDX-FileCopyrightText: 2025 Scott Shawcroft, written for Adafruit Industries
-# SPDX-FileCopyrightText: Copyright (c) 2021 Melissa LeBlanc-Williams for Adafruit Industries
 #
 # SPDX-License-Identifier: Unlicense
 
-"""Simple test script for 2.9" 296x128 display. This example runs it in mono mode."""
+"""Simple test script for 2.13" Quad Color Display"""
 
 import time
 
 import board
-import busio
 import displayio
 from fourwire import FourWire
 
@@ -16,12 +14,11 @@ import adafruit_jd79661
 
 displayio.release_displays()
 
-# This pinout works on a MagTag with the newer screen and may need to be altered for other boards.
-spi = busio.SPI(board.EPD_SCK, board.EPD_MOSI)  # Uses SCK and MOSI
-epd_cs = board.EPD_CS
-epd_dc = board.EPD_DC
-epd_reset = board.EPD_RESET
-epd_busy = board.EPD_BUSY
+spi = board.SPI()
+epd_cs = board.D9
+epd_dc = board.D10
+epd_reset = board.D6
+epd_busy = board.D5
 
 display_bus = FourWire(spi, command=epd_dc, chip_select=epd_cs, reset=epd_reset, baudrate=1000000)
 time.sleep(1)

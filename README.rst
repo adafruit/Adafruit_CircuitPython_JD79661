@@ -95,7 +95,6 @@ Usage Example
     import time
 
     import board
-    import busio
     import displayio
     from fourwire import FourWire
 
@@ -103,12 +102,11 @@ Usage Example
 
     displayio.release_displays()
 
-    # This pinout works on a MagTag with the newer screen and may need to be altered for other boards.
-    spi = busio.SPI(board.EPD_SCK, board.EPD_MOSI)  # Uses SCK and MOSI
-    epd_cs = board.EPD_CS
-    epd_dc = board.EPD_DC
-    epd_reset = board.EPD_RESET
-    epd_busy = board.EPD_BUSY
+    spi = board.SPI()
+    epd_cs = board.D9
+    epd_dc = board.D10
+    epd_reset = board.D6
+    epd_busy = board.D5
 
     display_bus = FourWire(spi, command=epd_dc, chip_select=epd_cs, reset=epd_reset, baudrate=1000000)
     time.sleep(1)
